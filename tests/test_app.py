@@ -32,6 +32,12 @@ def test_banner_on_index():
     assert "sf-banner.js" in r.text
 
 
+def test_footer_on_index():
+    r = client.get("/")
+    assert r.status_code == 200
+    assert "Built by the software factory POC" in r.text
+
+
 def test_create_entry_creates_and_redirects():
     _reset()
     _add("2026-12-01", "Amina", "brownies")
