@@ -1,19 +1,30 @@
 {% extends "base.html" %}
+{% block title %}Chess Club Snack Rota{% endblock %}
 {% block content %}
-<h1>Items</h1>
-<form method="post" action="/items" class="card">
-  <label>Name <input name="name" required maxlength="500"></label>
-  <label>Note <input name="note" maxlength="500"></label>
-  <button type="submit">Add</button>
+<h1>Chess Club Snack Rota</h1>
+<p class="muted">No login needed. Please do not enter personal or sensitive information — only a first name or nickname, a snack, and a date. Deletion is permanent.</p>
+{% if error %}<p class="error" role="alert">{{ error }}</p>{% endif %}
+<form method="post" action="/entries" class="card">
+  <label>Date <input type="date" name="date" required></label>
+  <label>Member name <input name="member_name" required maxlength="200"></label>
+  <label>Snack <input name="snack" required maxlength="200"></label>
+  <button type="submit">Add to rota</button>
 </form>
 <ul class="list">
-  {% for item in items %}
-  <li>
-    <strong>{{ item.name }}</strong> {{ item.note }}
-    <form method="post" action="/items/{{ item.id }}/delete" class="inline"><button>Delete</button></form>
+  {% for entry in entries %}
+  <li class="{% if entry.done %}done{% endif %}">
+    <span class="entry-date">{{ entry.date }}</span>
+    <strong>{{ entry.member_name }}</strong>
+    <span>{{ entry.snack }}</span>
+    <form method="post" action="/entries/{{ entry.id }}/done" class="inline">
+      <button type="submit">{% if entry.done %}Undo{% else %}Mark done{% endif %}</button>
+    </form>
+    <form method="post" action="/entries/{{ entry.id }}/delete" class="inline">
+      <button type="submit">Delete</button>
+    </form>
   </li>
   {% else %}
-  <li class="muted">No items yet.</li>
+  <li class="muted">No rota entries yet. Add the first one above.</li>
   {% endfor %}
 </ul>
 {% endblock %}
