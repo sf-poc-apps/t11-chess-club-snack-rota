@@ -11,3 +11,7 @@ button { font: inherit; background: var(--accent); color: #fff; border: 0; borde
 .list li { background: var(--card); border: 1px solid #e6e0ee; border-radius: 8px; padding: 10px 12px; display: flex; gap: 10px; align-items: center; }
 .inline { margin-left: auto; }
 .muted { color: var(--muted); }
+.error { color: #b3261e; background: #fdeceb; border: 1px solid #f5c6c2; border-radius: 6px; padding: 8px 12px; }
+.list li.done { opacity: 0.5; text-decoration: line-through; }
+.inline button.secondary { background: #8a8494; }
+.footer { margin-top: 18px; font-size: 0.85em; }
